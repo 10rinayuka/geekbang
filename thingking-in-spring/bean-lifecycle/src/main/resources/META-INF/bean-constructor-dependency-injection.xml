@@ -7,6 +7,9 @@
 >
 
     <bean name="userHolder" class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.UserHolder"
-          autowire="constructor"/>
+          autowire="constructor">
+<!--        <property name="number" value="1"/>-->
+        <property name="description" value="the use holder"/>
+    </bean>
 
 </beans>
