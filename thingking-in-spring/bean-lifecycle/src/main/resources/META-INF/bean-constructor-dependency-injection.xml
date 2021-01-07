@@ -6,6 +6,8 @@
         https://www.springframework.org/schema/beans/spring-beans.xsd"
 >
 
+    <bean class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.MyInstantiationAwareBeanPostProcessor"/>
+
     <bean name="userHolder" class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.UserHolder"
           autowire="constructor">
 <!--        <property name="number" value="1"/>-->
