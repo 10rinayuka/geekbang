@@ -2,12 +2,11 @@ package org.geekbang.thinking.in.spring.ioc.bean.lifecycle;
 
 import org.geekbang.thinking.in.spring.ioc.abs.dependency.domain.User;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanClassLoaderAware;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.*;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author riku
@@ -15,7 +14,8 @@ import org.springframework.core.env.Environment;
  * @Date 2021/1/6 23:46
  * @Description User Holder 类
  */
-public class UserHolder implements BeanFactoryAware, BeanNameAware, BeanClassLoaderAware, EnvironmentAware {
+public class UserHolder implements BeanFactoryAware, BeanNameAware, BeanClassLoaderAware, EnvironmentAware,
+        InitializingBean, SmartInitializingSingleton {
     private final User user;
     private Integer number;
     private String description;
@@ -82,5 +82,32 @@ public class UserHolder implements BeanFactoryAware, BeanNameAware, BeanClassLoa
     @Override
     public void setEnvironment(Environment environment) {
         this.environment = environment;
+    }
+
+    @PostConstruct
+    public void initPostConstructor() {
+        // psotProcessBeforeInitialization v3 -> v4
+        this.description = "user holder v4";
+        System.out.println("initPostConstructor() = " + this.description);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        // psotProcessBeforeInitialization v4 -> v5
+        this.description = "user holder v5";
+        System.out.println("afterPropertiesSet() = " + this.description);
+    }
+
+    public void init() {
+        // psotProcessBeforeInitialization v5 -> v6
+        this.description = "user holder v6";
+        System.out.println("init() = " + this.description);
+    }
+
+    @Override
+    public void afterSingletonsInstantiated() {
+        // psotProcessBeforeInitialization v7 -> v8
+        this.description = "user holder v8";
+        System.out.println("afterSingletonsInstantiated() = " + this.description);
     }
 }

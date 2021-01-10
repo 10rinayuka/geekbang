@@ -20,9 +20,12 @@ class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPos
         if (ObjectUtils.nullSafeEquals("superUser", beanName) && SuperUser.class.equals(beanClass)) {
             SuperUser superUser = new SuperUser();
             superUser.setName("自定义 SuperUser");
-            return superUser; // 返回一个自定义的普通示例，覆盖
+
+            // 返回一个自定义的普通示例，覆盖。之后不会调用 doCreateBean 方法 对 Bean 进行实例化。
+            return superUser;
         }
-        return null; // 保持不变
+        // 保持不变，后续会对 Bean 进行实例化处理（doCreateBean）
+        return null;
     }
 
     @Override
@@ -53,5 +56,25 @@ class MyInstantiationAwareBeanPostProcessor implements InstantiationAwareBeanPos
             return propertyValues;
         }
         return null;
+    }
+
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+        if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHolder.class.equals(bean.getClass())) {
+            UserHolder userHolder = (UserHolder) bean;
+            userHolder.setDescription("the user holder v3");
+        }
+        // return bean 效果和 return bean 没有区别
+        return bean;
+    }
+
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+        if (ObjectUtils.nullSafeEquals("userHolder", beanName) && UserHolder.class.equals(bean.getClass())) {
+            UserHolder userHolder = (UserHolder) bean;
+            userHolder.setDescription("the user holder v7");
+        }
+        // return bean 效果和 return bean 没有区别
+        return bean;
     }
 }
