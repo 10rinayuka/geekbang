@@ -8,7 +8,7 @@
 
     <bean class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.MyInstantiationAwareBeanPostProcessor"/>
 
-    <bean name="userHolder" class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.UserHolder" init-method="init"
+    <bean name="userHolder" class="org.geekbang.thinking.in.spring.ioc.bean.lifecycle.UserHolder" init-method="init" destroy-method="doDestroy"
           autowire="constructor">
 <!--        <property name="number" value="1"/>-->
         <property name="description" value="the use holder"/>

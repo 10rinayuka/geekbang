@@ -7,6 +7,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * @author riku
@@ -15,7 +16,7 @@ import javax.annotation.PostConstruct;
  * @Description User Holder 类
  */
 public class UserHolder implements BeanFactoryAware, BeanNameAware, BeanClassLoaderAware, EnvironmentAware,
-        InitializingBean, SmartInitializingSingleton {
+        InitializingBean, SmartInitializingSingleton, DisposableBean {
     private final User user;
     private Integer number;
     private String description;
@@ -86,28 +87,56 @@ public class UserHolder implements BeanFactoryAware, BeanNameAware, BeanClassLoa
 
     @PostConstruct
     public void initPostConstructor() {
-        // psotProcessBeforeInitialization v3 -> v4
+        // initPostConstructor v3 -> v4
         this.description = "user holder v4";
         System.out.println("initPostConstructor() = " + this.description);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        // psotProcessBeforeInitialization v4 -> v5
+        // afterPropertiesSet v4 -> v5
         this.description = "user holder v5";
         System.out.println("afterPropertiesSet() = " + this.description);
     }
 
     public void init() {
-        // psotProcessBeforeInitialization v5 -> v6
+        // init v5 -> v6
         this.description = "user holder v6";
         System.out.println("init() = " + this.description);
     }
 
     @Override
     public void afterSingletonsInstantiated() {
-        // psotProcessBeforeInitialization v7 -> v8
+        // afterSingletonsInstantiated v7 -> v8
         this.description = "user holder v8";
         System.out.println("afterSingletonsInstantiated() = " + this.description);
+    }
+
+    // Bean 销毁方法
+
+    @PreDestroy
+    public void preDestroy() {
+        // preDestroy v9 -> v10
+        this.description = "user holder v10";
+        System.out.println("preDestroy() = " + this.description);
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        // destroy v10 -> v11
+        this.description = "user holder v11";
+        System.out.println("destroy() = " + this.description);
+    }
+
+    public void doDestroy() {
+        // destroy v11 -> v12
+        this.description = "user holder v12";
+        System.out.println("doDestroy() = " + this.description);
+    }
+
+    // GC
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("UserHolder is finalize...");
     }
 }
