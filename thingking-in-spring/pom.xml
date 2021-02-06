@@ -23,6 +23,7 @@
         <module>il8n</module>
         <module>validation</module>
         <module>data-binding</module>
+        <module>conversion</module>
     </modules>
 
     <properties>

@@ -7,6 +7,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.Properties;
 
 /**
  * @author riku
@@ -30,6 +32,11 @@ public class User implements BeanNameAware {
     private String beanName;
 
     private Company company;
+
+    /**
+     * conversion 模块 追加
+     */
+    private Properties context;
 
     public Long getId() {
         return id;
@@ -87,17 +94,12 @@ public class User implements BeanNameAware {
         this.company = company;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city=" + city +
-                ", workCities=" + Arrays.toString(workCities) +
-                ", lifeCities=" + lifeCities +
-                ", configFileLocation=" + configFileLocation +
-                ", company=" + company +
-                '}';
+    public Properties getContext() {
+        return context;
+    }
+
+    public void setContext(Properties context) {
+        this.context = context;
     }
 
     public static User createUser() {
@@ -120,5 +122,20 @@ public class User implements BeanNameAware {
     @Override
     public void setBeanName(String name) {
         this.beanName = name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city=" + city +
+                ", workCities=" + Arrays.toString(workCities) +
+                ", lifeCities=" + lifeCities +
+                ", configFileLocation=" + configFileLocation +
+                ", beanName='" + beanName + '\'' +
+                ", company=" + Optional.ofNullable(company).orElse(new Company()).getName() +
+                ", context=" + context +
+                '}';
     }
 }
