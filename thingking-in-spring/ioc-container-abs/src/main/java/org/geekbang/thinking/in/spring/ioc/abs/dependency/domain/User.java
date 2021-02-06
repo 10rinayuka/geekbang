@@ -29,6 +29,8 @@ public class User implements BeanNameAware {
 
     private String beanName;
 
+    private Company company;
+
     public Long getId() {
         return id;
     }
@@ -77,6 +79,14 @@ public class User implements BeanNameAware {
         this.lifeCities = lifeCities;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -86,6 +96,7 @@ public class User implements BeanNameAware {
                 ", workCities=" + Arrays.toString(workCities) +
                 ", lifeCities=" + lifeCities +
                 ", configFileLocation=" + configFileLocation +
+                ", company=" + company +
                 '}';
     }
 
