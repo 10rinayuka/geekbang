@@ -4,6 +4,8 @@ import org.geekbang.thinking.in.spring.ioc.abs.dependency.domain.User;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.beans.PropertyEditor;
+
 /**
  * @author riku
  * @Classname SpringCustomizedPropertyEditorDemo

@@ -37,6 +37,7 @@ public class User implements BeanNameAware {
      * conversion 模块 追加
      */
     private Properties context;
+    private String contextAsText;
 
     public Long getId() {
         return id;
@@ -102,6 +103,14 @@ public class User implements BeanNameAware {
         this.context = context;
     }
 
+    public String getContextAsText() {
+        return contextAsText;
+    }
+
+    public void setContextAsText(String contextAsText) {
+        this.contextAsText = contextAsText;
+    }
+
     public static User createUser() {
         User user = new User();
         user.setId(0L);
@@ -136,6 +145,7 @@ public class User implements BeanNameAware {
                 ", beanName='" + beanName + '\'' +
                 ", company=" + Optional.ofNullable(company).orElse(new Company()).getName() +
                 ", context=" + context +
+                ", contextAsText='" + contextAsText + '\'' +
                 '}';
     }
 }
