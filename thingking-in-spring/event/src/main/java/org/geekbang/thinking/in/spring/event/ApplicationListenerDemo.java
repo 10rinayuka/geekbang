@@ -1,9 +1,6 @@
 package org.geekbang.thinking.in.spring.event;
 
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -60,6 +57,8 @@ public class ApplicationListenerDemo implements ApplicationEventPublisherAware {
         });
 
         applicationEventPublisher.publishEvent("Hello World2");
+        // PayloadApplicationEvent
+        applicationEventPublisher.publishEvent(new MyPayloadApplicationEvent(this, "Hello, World"));
     }
 
     static class MyApplicationListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -101,4 +100,19 @@ public class ApplicationListenerDemo implements ApplicationEventPublisherAware {
     private static void println(Object printable) {
         System.out.printf("[线程: %s] : %s\n", Thread.currentThread().getName(), printable);
     }
+
+    static class MyPayloadApplicationEvent<String> extends PayloadApplicationEvent<String> {
+
+        /**
+         * Create a new PayloadApplicationEvent.
+         *
+         * @param source  the object on which the event initially occurred (never {@code null})
+         * @param payload the payload object (never {@code null})
+         */
+        public MyPayloadApplicationEvent(Object source, String payload) {
+            super(source, payload);
+        }
+    }
+
+
 }
