@@ -52,11 +52,21 @@ public class AsyncEventHandlerDemo {
                     }
                 }
             });
+
+            simpleApplicationEventMulticaster.setErrorHandler(e ->{
+                System.err.println("当 Spring 事件异常时，原因: " + e.getMessage());
+            });
         }
+
+        context.addApplicationListener(new ApplicationListener<MySpringEvent>(){
+            @Override
+            public void onApplicationEvent(MySpringEvent event) {
+                throw new RuntimeException("故意抛出异常");
+            }
+        });
 
         // 发布 自定义 Spring 事件
         context.publishEvent(new MySpringEvent("Hello World"));
-
 
         context.close();
     }
