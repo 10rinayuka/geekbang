@@ -24,8 +24,12 @@ public class ProfileDemo {
 
         // 1. 设置默认 Profile 为 odd
         environment.setDefaultProfiles("odd");
+
         // 2. 增加活跃 Profiles
-        environment.addActiveProfile("even");
+//        environment.addActiveProfile("even");
+
+        // --spring.profiles.active = even
+        // -Dspring.profiles.active=even
 
         context.refresh();
 
