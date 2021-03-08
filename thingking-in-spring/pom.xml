@@ -30,6 +30,7 @@
         <module>environment</module>
         <module>application-context-lifecycle</module>
         <module>questions</module>
+        <module>aop-overview</module>
     </modules>
 
     <properties>
@@ -39,6 +40,12 @@
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
