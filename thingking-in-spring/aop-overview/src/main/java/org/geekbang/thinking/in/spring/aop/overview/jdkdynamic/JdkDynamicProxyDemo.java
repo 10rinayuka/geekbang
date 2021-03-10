@@ -32,5 +32,12 @@ public class JdkDynamicProxyDemo {
         });
 
         System.out.println(echoService.echo("Hello World! (jdk)"));
+
+        //
+        final Object proxy2 = Proxy.newProxyInstance(classLoader, new Class[]{Comparable.class}, (proxy, method, args1) -> {
+            return null;
+        });
+
+        System.out.println(proxy2);
     }
 }
