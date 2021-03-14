@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+
+    <!-- 激活 Aspect 注解自动代理 -->
+    <aop:aspectj-autoproxy/>
+
+    <bean id="aspectXmlConfig" class="org.geekbang.thinking.in.spring.aop.features.aspect.AspectXmlConfig"/>
+    <aop:config>
+        <aop:aspect id="AspectXmlConfig" ref="aspectXmlConfig">
+            <aop:pointcut id="anyPublicMethod" expression="execution(public * *(..))"/>
+            <!--            <aop:pointcut id="anyPublicMethod" expression="execution(public * echo(..))"/>-->
+            <aop:before method="beforeAnyPublicMethod" pointcut-ref="anyPublicMethod"/>
+            <aop:around method="aroundAnyPublicMethod" pointcut-ref="anyPublicMethod"/>
+            <aop:before method="beforeAnyPublicMethod" pointcut="execution(public * *(..))"/>
+
+        </aop:aspect>
+    </aop:config>
+
+    <!-- 被代理对象 -->
+    <bean id="echoService" class="org.geekbang.thinking.in.spring.aop.overview.staticproxy.DefaultEchoService"/>
+
+    <bean id="echoServiceMethodInterceptor"
+          class="org.geekbang.thinking.in.spring.aop.features.interceptor.EchoServiceMethodInterceptor"/>
+
+    <bean id="echoServiceProxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetName" value="echoService"/>
+        <property name="interceptorNames">
+            <value>echoServiceMethodInterceptor</value>
+        </property>
+    </bean>
+
+</beans>
