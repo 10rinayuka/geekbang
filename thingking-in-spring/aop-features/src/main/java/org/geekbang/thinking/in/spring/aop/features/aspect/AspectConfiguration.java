@@ -27,11 +27,17 @@ public class AspectConfiguration {
      */
     @Before("anyPublicMethod()")
     public void beforeAnyPublicMethod() {
+//        final Random random = new Random();
+//        if (random.nextBoolean()) {
+//            throw new RuntimeException("For Purpose");
+//        }
+
         System.out.println("@Before at ny public method.");
     }
 
     /**
      * Around 方法 - 需要显示的去调用 proceed 方法
+     *
      * @param pjp
      * @return
      * @throws Throwable

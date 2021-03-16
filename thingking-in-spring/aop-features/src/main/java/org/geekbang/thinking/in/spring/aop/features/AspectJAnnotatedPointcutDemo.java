@@ -5,6 +5,8 @@ import org.geekbang.thinking.in.spring.aop.features.aspect.AspectConfiguration2;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+import java.util.Random;
+
 /**
  * @author riku
  * @Classname AspectJPointcutDemo
@@ -30,6 +32,10 @@ public class AspectJAnnotatedPointcutDemo {
     }
 
     public void execute() {
+//        final Random random = new Random();
+//        if (random.nextBoolean()) {
+//            throw new RuntimeException("For Purpose");
+//        }
         System.out.println("execute()");
     }
 }
